@@ -41,7 +41,7 @@ namespace HProject.Infrastructure
                 .HasOptional(d => d.DepartmentManager)
                 .WithMany();
             modelBuilder.Entity<User>()
-                .HasRequired(u => u.UserDepartment)
+                .HasOptional(u => u.UserDepartment)
                 .WithMany();
 
             modelBuilder.Entity<ITArticleApplicationItem>()

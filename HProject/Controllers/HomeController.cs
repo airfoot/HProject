@@ -15,7 +15,7 @@ namespace HProject.Controllers
     {
         private ILogger _logger;
         private HProjectDbContext _context;
-      
+
 
         public HomeController(ILogger logger, HProjectDbContext hProjectDbContext)
         {
@@ -24,6 +24,7 @@ namespace HProject.Controllers
 
         }
         // GET: Home
+        [Authorize]
         public ActionResult Index()
         {
             return View();
@@ -33,7 +34,7 @@ namespace HProject.Controllers
         [ChildActionOnly]
         public ActionResult Menu()
         {
-            List<Menu> menuList = new List<Menu>();
+            List<HProject.Application.Menu> menuList = new List<HProject.Application.Menu>();
             ProduceMenu menu = new ProduceMenu();
             IPrincipal User = HttpContext.User;
             if (User.IsInRole("Admin"))
@@ -47,4 +48,6 @@ namespace HProject.Controllers
 
             return PartialView(menuList);
         }
+
+    }
 }

@@ -5,13 +5,33 @@
     font-weight: normal;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'FontAwesome';
+    src: url('../fonts/fontawesome-webfont.eot?v=4.7.0');
+    src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'),url('../fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2'),url('../fonts/fontawesome-webfont.woff?v=4.7.0') format('woff'),url('../fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype'),url('../fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');
+    font-weight: normal;
+    font-style: normal
+}
+
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale
+}
+
+
+
 html{
     height:100%;
 }
 body {
   
-    background-color:#F5F5F5;
-    color:#4f4f4f;
+    background-color:#FdFdFd;
+    color:#1a2a3a;
     height:100%;
     margin:2px 0 0 0;
     padding:0;
@@ -63,7 +83,7 @@ header{
 
 }
 .header-right a {
-    margin-left:0.1em;
+    
     text-decoration: none;
     color:white;
     font-size:1.2em;
@@ -83,19 +103,117 @@ main {
     
 }
 aside {
-  
-    width:245px;
-    min-width:235px;
-    
-    background-color:#EFEFEF;
-    border-right:0.08rem solid #a6a6a6;
+    width: 245px;
+    min-width: 235px;
+    background-color: #EFEFEF;
+    border-right: 0.08rem solid #a6a6a6;
+    overflow-y: auto;
 }
-section{
-    flex:1;
-   
 
-   
+/** define Menu Item style**/
 
+aside i{
+    
+    
+}
+aside a{
+        display: inline-block;
+        text-decoration: none;
+        color: inherit;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+}
+aside ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+}
+aside li{
+    margin:0;
+    padding:0;
+}
+aside > nav > ul > li > a {
+    /**border-top:1px solid green;
+	border-bottom:1px solid green;
+	box-sizing:border-box;
+	**/
+    border-top: 1px solid #fcfcfc;
+    border-bottom: 1px solid #c8c8cb;
+    background: #efeff0;
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #efeff0), color-stop(1, #fafafa));
+    background: -ms-linear-gradient(bottom, #efeff0, #fafafa);
+    background: -moz-linear-gradient(center bottom, #efeff0 0%, #fafafa 100%);
+    background: -o-linear-gradient(bottom, #efeff0, #fafafa);
+    filter: progid:dximagetransform.microsoft.gradient(startColorStr='#e3e3e3', EndColorStr='#ffffff');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#fafafa',EndColorStr='#efeff0')";
+    border-left: none;
+    color: #444;
+    display: block;
+    font-weight: normal;
+    font-size: 1em;
+    line-height: 2.2em;
+    padding: .25em .25em .25em .25em;
+    margin-bottom: 0px;
+    text-shadow: none;
+    text-transform: none;
+    /*Change the arrow direction if the item is collapsed*/
+    box-sizing: border-box;
+
+}
+aside nav ul li ul a {
+    line-height: 2em;
+}
+
+aside > nav > ul > li > ul > li > a {
+    padding-left: 10px;
+}
+
+aside >nav > ul > li > ul > li > ul > li > a {
+    padding-left: 25px;
+}
+
+aside > nav > ul > li > ul > li > a:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: "\f22d";
+}
+
+
+aside > nav > ul > li > ul > li > ul > li > a:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: "\f068";
+}
+aside a + ul {
+    display: none;
+}
+
+aside a > span {
+    padding-right: 1em;
+    float: right;
+    margin: 0.5em 0 auto 0;
+}
+
+aside a:hover {
+        background-color: #b5bd00;
+        text-decoration:none;
+
+}
+
+/***above css is used to define Menu Item style**/
+
+section {
+    flex: 1;
+    padding: 15px 15px 0px 15px;
 }
 footer{
     height:35px;
@@ -126,3 +244,4 @@ footer{
 .dialog .remember-me {
     padding: .5em 0em 0em 0em;
 }
+/***Login Page End**/

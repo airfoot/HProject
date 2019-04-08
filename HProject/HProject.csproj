@@ -299,6 +299,7 @@
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\fileinput.js" />
     <Content Include="Scripts\fileinput.min.js" />
+    <Content Include="Scripts\HProject.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
     <Content Include="Scripts\jquery-3.0.0.slim.js" />
@@ -399,6 +400,7 @@
     <Compile Include="Infrastructure\ValidateEmail.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Password.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -423,6 +425,9 @@
     <Content Include="Views\Shared\404Error.cshtml" />
     <Content Include="Views\Shared\HeaderRightMenu.cshtml" />
     <Content Include="Views\Shared\Menu.cshtml" />
+    <Content Include="Views\Account\CreateUser.cshtml" />
+    <Content Include="Views\Account\GetUsers.cshtml" />
+    <Content Include="Views\Shared\Errors.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -432,6 +437,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Image\UserPicture\" />
     <Folder Include="Views\DistributingArticle\" />
   </ItemGroup>
   <ItemGroup>

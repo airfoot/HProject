@@ -7,9 +7,9 @@ namespace HProject.Application
 {
     public class ProduceMenu
     {
-        public List<Menu> GetAdminMenu()
+        public List<HProject.Application.Menu> GetAdminMenu()
         {
-            List<Menu> adminMenu = new List<Menu>();
+            List<HProject.Application.Menu> adminMenu = new List<HProject.Application.Menu>();
             adminMenu.Add(new Menu("申请IT物品", @"/DistributingArticle/ApplyforITArticle"));
             adminMenu.Add(new Menu("我的IT物品申请", @"/DistributingArticle/MyApplication"));
             adminMenu.Add(new Menu("IT物品管理", @"/DistributingArticle/ManagerITArticle"));
@@ -18,9 +18,9 @@ namespace HProject.Application
             return adminMenu;
         }
 
-        public List<Menu> GetUserMenu()
+        public List<HProject.Application.Menu> GetUserMenu()
         {
-            List<Menu> userMenu = new List<Menu>();
+            List<HProject.Application.Menu> userMenu = new List<HProject.Application.Menu>();
             userMenu.Add(new Menu("申请IT物品", @"/DistributingArticle/ApplyforITArticle"));
             userMenu.Add(new Menu("我的IT物品申请", @"/DistributingArticle/MyApplication"));
             
@@ -30,8 +30,8 @@ namespace HProject.Application
 
     public class Menu
     {
-        string Name { get; set; }
-        string Hyperlink { get; set; }
+        public string Name { get; set; }
+        public string Hyperlink { get; set; }
 
         public Menu(string name, string hyperlink)
         {

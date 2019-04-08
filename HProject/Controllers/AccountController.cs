@@ -110,6 +110,153 @@ namespace HProject.Controllers
 
         }
 
+
+     
+        [HttpGet]
+        public ActionResult CreateUser()
+        {
+            UserViewModel userViewModel = new UserViewModel();
+            var departmentList = _context.Departments;
+            var departmentSelectList = new SelectList(departmentList, "Id", "Name");
+            ViewData["departmentDropdown"] = departmentSelectList;
+            return View(userViewModel);
+        }
+        [HttpPost]
+        public ActionResult CreateUser(UserViewModel userViewModel, HttpPostedFileBase userPicture = null)
+        {
+            string userPictureFilePath = null;
+            IdentityResult result = null;
+            if (ModelState.IsValid)
+            {
+
+                if (userPicture != null)
+                {
+                    //Save uploaded file to path of "~/Image/UserPicture"
+                    int splitIndex = userPicture.ContentType.LastIndexOf(@"/");
+                    string newFileName = Guid.NewGuid().ToString() + "." + userPicture.ContentType.Substring(++splitIndex);
+                    userPictureFilePath = Path.Combine(Server.MapPath("/Image/UserPicture"), newFileName);
+                    if (!Directory.Exists(Server.MapPath("/Images/UserPicture")))
+                    {
+                        Directory.CreateDirectory(Server.MapPath("/Images/UserPicture"));
+                    }
+                    userPicture.SaveAs(userPictureFilePath);
+
+                }
+                else
+                {
+                    userPictureFilePath = Path.Combine(Server.MapPath("/Images"), "defaultUser.jpg");
+                }
+                if (!ValidateEmail.IsValidEmail(userViewModel.Email))
+                {
+                    ModelState.AddModelError("Email", "邮箱地址无效");
+                    if (!string.IsNullOrEmpty(userPictureFilePath) && !userPictureFilePath.Contains("defaultUser.jpg"))
+                    {
+                        System.IO.File.Delete(userPictureFilePath);
+                    }
+                    return View(userViewModel);
+                }
+  
+                User user = new User();
+                user.FullName = userViewModel.FullName;
+                user.UserName = userViewModel.UserName;
+                user.Email = userViewModel.Email;
+
+               
+                user.PhoneNumber = userViewModel.ContactPhone;
+                user.IconUrl = userPictureFilePath;
+                if (string.IsNullOrEmpty(userViewModel.Password))
+                {
+                    result = UserManager.Create(user);
+                    AddDepartmentToUser(user.Id.ToString(), userViewModel.Department);
+                }
+                else
+                {
+                    result = UserManager.Create(user, userViewModel.Password);
+                    AddDepartmentToUser(user.Id.ToString(), userViewModel.Department);
+                }
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("GetUsers", "Account");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error);
+                    }
+
+                }
+                //Clean before created file if encounter any errors
+                if (!string.IsNullOrEmpty(userPictureFilePath) && !userPictureFilePath.Contains("defaultUser.jpg"))
+                {
+                    System.IO.File.Delete(userPictureFilePath);
+                }
+
+            }
+
+            return View(userViewModel);
+        }
+
+
+
+        [HttpGet]
+        public ActionResult GetUsers(int? page)
+        {
+            var allUsers = from u in UserManager.Users
+                           where u.LockoutEnabled == false
+                           orderby u.UserName descending
+                           select new UserViewModel
+                           {
+                               Id = u.Id,
+                               FullName = u.FullName,
+                               UserName = u.UserName,
+                               Email = u.Email,
+                              
+                               Department = u.UserDepartment.Name,
+
+                               ContactPhone = u.PhoneNumber
+                           };
+
+            var pageNumber = page ?? 1;
+            var onePageOfUsers = allUsers.ToPagedList(pageNumber, 15);
+            return View(onePageOfUsers);
+        }
+
+        /// <summary>
+        /// Gets the user picture.
+        /// </summary>
+        /// <param name="Id">The Id of User object.</param>
+        /// <returns></returns>
+        [HttpGet]
+        public FilePathResult GetUserPicture(string id)
+        {
+            User user = UserManager.FindById(id);
+            if (string.IsNullOrEmpty(user.IconUrl))
+            {
+                return File(Path.Combine(Server.MapPath("/Image"), "defaultUser.jpg"), "image/jpeg");
+            }
+            string contentType = System.Web.MimeMapping.GetMimeMapping(user.IconUrl);
+            return File(user.IconUrl, contentType);
+
+        }
+
+        public ActionResult DeleteUser(string id)
+        {
+            User user = UserManager.FindById(id);
+            var deleteResult = UserManager.SetLockoutEnabled(user.Id, true);
+            if (deleteResult.Succeeded)
+            {
+                return RedirectToAction("GetUsers");
+            }
+            ViewBag.ErrorMessages = deleteResult.Errors;
+            return View("Errors");
+
+        }
+
+        ////////////////////////////////
+
+
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -117,6 +264,7 @@ namespace HProject.Controllers
                 ModelState.AddModelError("", error);
             }
         }
+
 
         private IAuthenticationManager AuthManager
         {
@@ -139,6 +287,27 @@ namespace HProject.Controllers
             get
             {
                 return HttpContext.GetOwinContext().GetUserManager<UserManagers>();
+            }
+        }
+
+        private void AddDepartmentToUser(string userId, string departmentId)
+        {
+            try
+            {
+
+          
+            var user = _context.Users.Where(u => u.Id.ToString() == userId).FirstOrDefault();
+           
+            var department = _context.Departments.Find(new Guid(departmentId));
+       
+                user.UserDepartment = department;
+         
+           
+            _context.SaveChanges();
+            }
+            catch(Exception e)
+            {
+                throw;
             }
         }
     }
