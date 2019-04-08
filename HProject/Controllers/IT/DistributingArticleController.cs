@@ -13,5 +13,25 @@ namespace HProject.Controllers.IT
         {
             return View();
         }
+
+        public ActionResult ApplyforITArticle()
+        {
+            return View();
+        }
+
+        public ActionResult MyApplication()
+        {
+            return View();
+        }
+
+        public ActionResult ManageITArticle()
+        {
+            return View();
+        }
+
+        public ActionResult AllocateITArticle()
+        {
+            return View();
+        }
     }
 }
