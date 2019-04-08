@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using HProject.Models
+@model List<ITArticleViewModel>
+
+
+
+<div>
+    <div class="page-header">
+     <h2>管理IT领用物品</h2>
+    </div>
+    <div>
+        <div>
+            <a class="btn btn-primary" href="@Url.Action("Create","ManageITArticle")">添加IT领用物品</a>
+        </div>
+        <div class="ITArticleList">
+            @foreach(var item in Model)
+            {
+                <div class="ITArticleItem">
+
+                    <div>
+                        <img src="@Url.Action("GetITArticlePicture","ManageITArticle",new {id=item.Id})"/>
+                    </div>
+                    <div class="ITArticleName">
+                        @item.Name
+                    </div>
+                    <div class="ITArticleDescription">
+                        @item.Description
+                    </div>
+                    <div>
+                        库存：@item.Stock
+                    </div>
+                    <div>
+
+                        <a href="@Url.Action("Change","ManageITArticle",new {id = item.Id})"><i class="fa fa-pencil-square-o">更改</i></a>
+                        <a href="@Url.Action("Delete","ManageITArticle",new {id = item.Id})"><i class="fa fa-trash-o"> 删除</i></a>
+                    </div>
+
+                </div>
+            }
+        </div>
+
+    </div>
+</div>

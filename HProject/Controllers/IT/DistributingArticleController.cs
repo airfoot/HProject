@@ -24,10 +24,7 @@ namespace HProject.Controllers.IT
             return View();
         }
 
-        public ActionResult ManageITArticle()
-        {
-            return View();
-        }
+        
 
         public ActionResult AllocateITArticle()
         {

@@ -12,7 +12,7 @@ namespace HProject.Application
             List<HProject.Application.Menu> adminMenu = new List<HProject.Application.Menu>();
             adminMenu.Add(new Menu("申请IT物品", @"/DistributingArticle/ApplyforITArticle"));
             adminMenu.Add(new Menu("我的IT物品申请", @"/DistributingArticle/MyApplication"));
-            adminMenu.Add(new Menu("IT物品管理", @"/DistributingArticle/ManagerITArticle"));
+            adminMenu.Add(new Menu("IT物品管理", @"/ManageITArticle/Index"));
             adminMenu.Add(new Menu("IT物品分配", @"/DistributingArticle/AllocateITArticle"));
 
             return adminMenu;

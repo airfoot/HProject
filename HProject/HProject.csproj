@@ -380,6 +380,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IT\DistributingArticleController.cs" />
+    <Compile Include="Controllers\IT\ManageITArticleController.cs" />
     <Compile Include="Domain\Department.cs" />
     <Compile Include="Domain\ITArticle.cs" />
     <Compile Include="Domain\ITArticleApplication.cs" />
@@ -398,6 +399,7 @@
     <Compile Include="Infrastructure\StateEnum.cs" />
     <Compile Include="Infrastructure\UserManagers.cs" />
     <Compile Include="Infrastructure\ValidateEmail.cs" />
+    <Compile Include="Models\ITArticleViewModel.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Password.cs" />
     <Compile Include="Models\UserViewModel.cs" />
@@ -428,6 +430,8 @@
     <Content Include="Views\Account\CreateUser.cshtml" />
     <Content Include="Views\Account\GetUsers.cshtml" />
     <Content Include="Views\Shared\Errors.cshtml" />
+    <Content Include="Views\ManageITArticle\Index.cshtml" />
+    <Content Include="Views\ManageITArticle\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -437,6 +441,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Image\ITArticle\" />
     <Folder Include="Image\UserPicture\" />
     <Folder Include="Views\DistributingArticle\" />
   </ItemGroup>
